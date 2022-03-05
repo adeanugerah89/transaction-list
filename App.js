@@ -5,17 +5,18 @@ import {
   ScrollView,
   StatusBar,
   StyleSheet,
-  Text,
   useColorScheme,
   View,
 } from 'react-native';
+import {NativeBaseProvider, Text, Box} from 'native-base';
+
 import Navigator from './src/navigator';
 
 function App() {
   return (
-    <>
+    <NativeBaseProvider>
       <Navigator />
-    </>
+    </NativeBaseProvider>
   );
 }
 
