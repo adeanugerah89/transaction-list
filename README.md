@@ -16,5 +16,6 @@ Install the dependencies and devDependencies and start the server.
 ```sh
 $ cd {project-folder}
 $ npm install
-$ npm run android
+$ npx pod-install
+$ npm run android / npm run ios
 ```
