@@ -1,12 +1,14 @@
 import React from 'react';
-import {VStack, Input, Text, Heading} from 'native-base';
+import {TouchableOpacity} from 'react-native';
+import {VStack, Input, Text} from 'native-base';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-export default SearchComponent = ({onChange, state}) => {
+export default SearchComponent = ({onChange, state, showModal}) => {
   return (
     <VStack my="4" space={1} w="100%">
       <VStack w="100%" space={5} alignSelf="center">
         <Input
+          value={state.search}
           onChangeText={text => onChange('search', text)}
           placeholder="Cari nama, bank atau nominal"
           width="100%"
@@ -24,17 +26,23 @@ export default SearchComponent = ({onChange, state}) => {
             />
           }
           InputRightElement={
-            <>
-              <Text key="first" style={{color: '#F09476'}}>
+            <TouchableOpacity
+              onPress={() => showModal()}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                marginEnd: 10,
+              }}>
+              <Text key="first" style={{color: '#F09476', marginHorizontal: 5}}>
                 URUTKAN
               </Text>
               <FontAwesome5
                 key="second"
                 name={'angle-down'}
                 size={18}
-                style={{padding: 10, color: '#F09476'}}
+                style={{color: '#F09476', alignSelf: 'center'}}
               />
-            </>
+            </TouchableOpacity>
           }
         />
       </VStack>

@@ -15,7 +15,11 @@ function AppStack() {
         component={Transactions}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="TransactionsDetail" component={TransactionsDetail} />
+      <Stack.Screen
+        name="TransactionsDetail"
+        component={TransactionsDetail}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 }

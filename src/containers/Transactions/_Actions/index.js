@@ -34,22 +34,37 @@ export const fetchTransactionFailure = error => {
   };
 };
 
-export const handleState = (field, value) => {
-  return {
-    type: types.HANDLE_STATE_TRANSACTION_LIST,
-    field,
-    value,
+export const filterByValue = (field, value) => {
+  return async (dispatch, getState) => {
+    const {transactions} = getState().transactionReducer;
+    const searchedData = !!value
+      ? searching(transactions, value)
+      : transactions;
+
+    dispatch({
+      type: types.FILTER_BY_VALUE,
+      field,
+      value,
+      searchedData,
+    });
   };
 };
 
-export const filterByValue = value => {
-  return {
-    type: types.FILTER_BY_VALUE,
-    value,
-  };
+const searching = (data, textInput) => {
+  if (!textInput) return data;
+
+  return data.filter(item => {
+    const textInputLower = textInput.toLowerCase();
+    return (
+      (item.beneficiary_name.toLowerCase().includes(textInputLower) ||
+        item.beneficiary_bank.toLowerCase().includes(textInputLower) ||
+        item.sender_bank.toLowerCase().includes(textInputLower)) &&
+      item
+    );
+  });
 };
 
-export const sortByName = value => {
+export const sortBy = value => {
   return {
     type: types.SORT_DATA_LIST,
     value,

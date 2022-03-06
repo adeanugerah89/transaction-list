@@ -11,10 +11,11 @@ const initialState = {
 
 const transactionReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.HANDLE_STATE_TRANSACTION_LIST:
+    case types.FILTER_BY_VALUE:
       return {
         ...state,
         [action.field]: action.value,
+        filteredTransactions: action.searchedData,
       };
     case types.FETCH_TRANSACTION_LIST:
       return {
@@ -35,19 +36,6 @@ const transactionReducer = (state = initialState, action) => {
         transactions: [],
         filteredTransactions: [],
         error: action.payload,
-      };
-    case types.FILTER_BY_VALUE:
-      let value = action.value.toLowerCase();
-      let filteredTransactions = state.transactions.filter(trans => {
-        return (
-          trans.beneficiary_name.toLowerCase().includes(value) ||
-          trans.beneficiary_bank.toLowerCase().includes(value) ||
-          trans.sender_bank.toLowerCase().includes(value)
-        );
-      });
-      return {
-        ...state,
-        filteredTransactions,
       };
     case types.SORT_DATA_LIST:
       let sortedArr =
