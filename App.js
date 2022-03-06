@@ -7,7 +7,10 @@ import {NativeBaseProvider} from 'native-base';
 function App() {
   return (
     <Provider store={store}>
-      <NativeBaseProvider>
+      <NativeBaseProvider
+        config={{
+          suppressColorAccessibilityWarning: true,
+        }}>
         <Main />
       </NativeBaseProvider>
     </Provider>

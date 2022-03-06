@@ -38,9 +38,14 @@ export default CardComponent = ({props, navigation}) => {
             )}`}</Text>
           </View>
         </View>
+
         <View style={styles.buttonContainer}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('TransactionsDetail')}
+            onPress={() =>
+              navigation.navigate('TransactionsDetail', {
+                item: props,
+              })
+            }
             style={
               props.status == 'SUCCESS'
                 ? styles.buttonStyle
