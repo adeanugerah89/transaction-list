@@ -20,8 +20,4 @@ function AppStack() {
   );
 }
 
-export default () => (
-  <NavigationContainer>
-    <AppStack />
-  </NavigationContainer>
-);
+export default () => <AppStack />;

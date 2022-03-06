@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {View, Dimensions, FlatList} from 'react-native';
+import {View, Dimensions, FlatList, ActivityIndicator} from 'react-native';
 import {VStack, Input, Text, Heading} from 'native-base';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CardComponent from '../../components/CardComponent';
+
+import {fetchTransaction} from './_Actions';
 
 const {height, width} = Dimensions.get('window');
 
@@ -90,6 +92,15 @@ const Transactions = ({navigation}) => {
       unique_code: 316,
     },
   ]);
+
+  const state = useSelector(({transactionReducer}) => transactionReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // dispatch(handleState('search', ''))
+    dispatch(fetchTransaction());
+  }, []);
+
   return (
     <View
       style={{
@@ -99,13 +110,24 @@ const Transactions = ({navigation}) => {
         height: height,
       }}>
       <SearchBar />
-
-      <FlatList
-        data={transactions}
-        renderItem={({item, index}) => (
-          <CardComponent key={index} props={item} navigation={navigation} />
-        )}
-      />
+      {state && !state.loading ? (
+        <FlatList
+          data={state.transactions}
+          renderItem={({item, index}) => (
+            <CardComponent key={index} props={item} navigation={navigation} />
+          )}
+        />
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#F5FCFF',
+          }}>
+          <ActivityIndicator size="large" color="#FF7D1D" animating={true} />
+        </View>
+      )}
     </View>
   );
 };
